@@ -71,7 +71,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return productModel;
     }
-
+    public ProductModel searchProduct(String name){
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,new String[]{ID,name,price,city,description,created_at},name+" = ?",new String[]{String.valueOf(name)},null,null,null);
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+        ProductModel productModel=new ProductModel(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
+        db.close();
+        return productModel;
+    }
     public List<ProductModel> getAllProducts(){
         List<ProductModel> productModelList=new ArrayList<>();
         String query="SELECT * from "+TABLE_NAME;

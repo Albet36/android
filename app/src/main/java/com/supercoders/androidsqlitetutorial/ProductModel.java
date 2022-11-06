@@ -8,14 +8,18 @@ public class ProductModel {
     String description="";
     String created_at="";
 
-    public ProductModel(String id, String name, String email, String phone, String dob, String created_at) {
+
+    public ProductModel(String id, String name, String price, String city, String description, String created_at) {
         this.id = id;
         this.name = name;
-        this.price = email;
-        this.city = phone;
-        this.description = dob;
+        this.price = price;
+        this.city = city;
+        this.description = description;
         this.created_at = created_at;
+
     }
+
+
 
     public ProductModel(){
 

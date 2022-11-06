@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Button insert=findViewById(R.id.insert_data);
         Button update=findViewById(R.id.update_data);
         Button read=findViewById(R.id.refresh_data);
+        Button search=findViewById(R.id.search_btn);
         datalist=findViewById(R.id.all_data_list);
         datalist_count=findViewById(R.id.data_list_count);
 
@@ -59,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
              showDeleteDialog();
             }
         });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchDialog();
+            }
+        });
 
     }
 
@@ -72,6 +79,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    private void searchDialog() {
+        AlertDialog.Builder al=new AlertDialog.Builder(MainActivity.this);
+        View view=getLayoutInflater().inflate(R.layout.activity_main,null);
+        al.setView(view);
+        final EditText search_input=view.findViewById(R.id.search_edt);
+        Button search_btn=view.findViewById(R.id.search_btn);
+        final AlertDialog alertDialog=al.show();
+
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseHelper.searchProduct(search_input.getText().toString());
+                alertDialog.dismiss();
+                refreshData();
+
+            }
+        });
+
+
+    }
     private void showDeleteDialog() {
         AlertDialog.Builder al=new AlertDialog.Builder(MainActivity.this);
         View view=getLayoutInflater().inflate(R.layout.delete_dialog,null);
@@ -116,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder al=new AlertDialog.Builder(MainActivity.this);
         View view=getLayoutInflater().inflate(R.layout.update_dialog,null);
         final EditText name=view.findViewById(R.id.name);
-        final EditText price=view.findViewById(R.id.email);
-        final EditText city=view.findViewById(R.id.phone);
-        final EditText description=view.findViewById(R.id.dob);
+        final EditText price=view.findViewById(R.id.price);
+        final EditText city=view.findViewById(R.id.city);
+        final EditText description=view.findViewById(R.id.desctiption);
         Button update_btn=view.findViewById(R.id.update_btn);
         al.setView(view);
 
@@ -148,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder al=new AlertDialog.Builder(MainActivity.this);
         View view=getLayoutInflater().inflate(R.layout.insert_dialog,null);
         final EditText name=view.findViewById(R.id.name);
-        final EditText price=view.findViewById(R.id.email);
-        final EditText city=view.findViewById(R.id.phone);
-        final EditText description=view.findViewById(R.id.dob);
+        final EditText price=view.findViewById(R.id.price);
+        final EditText city=view.findViewById(R.id.city);
+        final EditText description=view.findViewById(R.id.desctiption);
         Button insertBtn=view.findViewById(R.id.insert_btn);
         al.setView(view);
 
